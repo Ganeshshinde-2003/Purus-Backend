@@ -25,6 +25,10 @@ const contactSchema = mongoose.Schema(
     company: {
       type: String,
     },
+    message: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

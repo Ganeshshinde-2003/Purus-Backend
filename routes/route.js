@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post("/api/contact", async (req, res) => {
   try {
-    const { firstName, lastName, email, number, company } = req.body;
+    const { firstName, lastName, email, number, company, message } = req.body;
 
     let contact = new Contact({
       firstName,
@@ -12,6 +12,7 @@ router.post("/api/contact", async (req, res) => {
       email,
       number,
       company,
+      message,
     });
 
     user = await contact.save();
