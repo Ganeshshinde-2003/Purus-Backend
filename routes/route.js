@@ -3,6 +3,10 @@ const Contact = require("../modules/contact");
 const Candidates = require("../modules/candidate");
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
+require('dotenv').config();
+
+const cemail = process.env.COMPANY_EMAIL;
+const password = process.env.COMPANY_PASS;
 
 const router = express.Router();
 
@@ -24,15 +28,15 @@ router.post("/api/contact", async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-          user: 'eng21cs0279@dsu.edu.in',
-          pass: 'Yolov5Pass',
+          user: cemail,
+          pass: password,
       },
   });
 
   // Email content
   const mailOptions = {
-      from: 'eng21cs0279@dsu.edu.in',
-      to: ['nuthanb23@gmail.com',email],
+      from: cemail,
+      to: [cemail,email],
       subject: 'New Contact Form Submission',
       text: `Name: ${firstName}\nNumber: ${number}\nEmail: ${email}\ncompany: ${company}\nmessage:${message}`,
   };
@@ -71,15 +75,15 @@ router.post("/api/candidate", async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-          user: 'eng21cs0279@dsu.edu.in',
-          pass: 'Yolov5Pass',
+        user: cemail,
+        pass: password,
       },
   });
 
   // Email content
   const mailOptions = {
-      from: 'eng21cs0279@dsu.edu.in',
-      to: ['nuthanb23@gmail.com',email],
+      from: cemail,
+      to: [cemail,email],
       subject: 'New Contact Form Submission',
       text: `Name: ${firstName}\nNumber: ${number}\nEmail: ${email}\ncompany: ${company}\nmessage:${message}`,
   };
