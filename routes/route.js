@@ -1,9 +1,8 @@
 const express = require("express");
 const Contact = require("../modules/contact");
 const Candidates = require("../modules/candidate");
-const nodemailer = require('nodemailer');
-const bodyParser = require('body-parser');
-require('dotenv').config();
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 const cemail = process.env.COMPANY_EMAIL;
 const password = process.env.COMPANY_PASS;
@@ -26,29 +25,28 @@ router.post("/api/contact", async (req, res) => {
     user = await contact.save();
 
     const transporter = nodemailer.createTransport({
-      service: 'Gmail',
+      service: "Gmail",
       auth: {
-          user: cemail,
-          pass: password,
+        user: cemail,
+        pass: password,
       },
-  });
+    });
 
-  // Email content
-  const mailOptions = {
+    // Email content
+    const mailOptions = {
       from: cemail,
-      to: [cemail,email],
-      subject: 'New Contact Form Submission',
-      text: `Name: ${firstName}\nNumber: ${number}\nEmail: ${email}\ncompany: ${company}\nmessage:${message}`,
-  };
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
+      to: [cemail, email],
+      subject: "New Contact Form Submission",
+      text: `Name: ${firstName}${" "}${lastName}\nNumber: ${number}\nEmail: ${email}\ncompany: ${company}\nmessage:${message}`,
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
         console.error(error);
-        res.send('Error sending email.');
-    } else {
-        console.log('Email sent: ' + info.response);
-        res.send('Thank you for your submission!');
-    }
-});
+        res.send("Error sending email.");
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
 
     res.status(200).json({ msg: "Succesfully submitted" });
   } catch (error) {
@@ -73,29 +71,28 @@ router.post("/api/candidate", async (req, res) => {
 
     user = await contact.save();
     const transporter = nodemailer.createTransport({
-      service: 'Gmail',
+      service: "Gmail",
       auth: {
         user: cemail,
         pass: password,
       },
-  });
+    });
 
-  // Email content
-  const mailOptions = {
+    // Email content
+    const mailOptions = {
       from: cemail,
-      to: [cemail,email],
-      subject: 'New Contact Form Submission',
-      text: `Name: ${firstName}\nNumber: ${number}\nEmail: ${email}\ncompany: ${company}\nmessage:${message}`,
-  };
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
+      to: [cemail, email],
+      subject: "New Candidate Form Submission",
+      text: `Name: ${firstName}${" "}${firstName}\nNumber: ${number}\nEmail: ${email}\nmessage:${message}`,
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
         console.error(error);
-        res.send('Error sending email.');
-    } else {
-        console.log('Email sent: ' + info.response);
-        res.send('Thank you for your submission!');
-    }
-});
+        res.send("Error sending email.");
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
 
     res.status(200).json({ msg: "Succesfully submitted" });
   } catch (error) {
